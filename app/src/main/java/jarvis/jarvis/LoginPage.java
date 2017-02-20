@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.Date;
+
 public class LoginPage extends AppCompatActivity implements TextToSpeech.OnInitListener{
     private TextToSpeech tts;
     final Context context = this;
@@ -21,21 +23,21 @@ public class LoginPage extends AppCompatActivity implements TextToSpeech.OnInitL
         Button buttonOne = (Button) findViewById(R.id.loginButton);
         buttonOne.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
-                int x = 1 + 5;
+                Date d = new Date();
+                int x = 1 + 5 + d.getDate() + d.getMonth();
                 String s = Integer.valueOf(x).toString();
                 TextView p = (TextView)findViewById(R.id.passwordTextBox);
                 if(p.getText().toString().equals(s)){
-                    Log.e("TTS", "logged in");
+                    Intent intent = new Intent(context, HomePage.class);
+                    startActivity(intent);
+                }
+                else{
+                    Log.e("LG", s);
                 }
             }
         });
     }
     public void onInit(int status) {
-        /*
-         * Retrieve isFirstTime flag from the DB
-         * If yes, then do following.
-         * else directly go to the Login page
-         */
         tts.speak("Please fill in the password.", TextToSpeech.QUEUE_FLUSH, null);
     }
 }
