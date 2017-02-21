@@ -96,7 +96,7 @@ public class HomePage extends AppCompatActivity implements TextToSpeech.OnInitLi
         else if(timeOfDay >= 16 && timeOfDay < 21)
             greet = "Good Evening";
         else if(timeOfDay >= 21 && timeOfDay < 24)
-            greet = "Good Night";
+            greet = "Hello!";
         speakOut(greet);
         Log.e("TTS", "whatever");
     }
@@ -120,6 +120,9 @@ class Managers{
             studyManager();
         else if (cmd.contains("introduce someone"))
             introductionManager();
+        else if(cmd.contains("exit")){
+            System.exit(0);
+        }
         else{
             //Now, here is a statement that is not hardcoded.
             //So analyse this statement & it possibly can be a tricky statement.

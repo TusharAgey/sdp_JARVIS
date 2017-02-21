@@ -18,7 +18,11 @@
         <activity android:name=".OneTimeHelp" />
         <activity android:name=".SignUp" />
         <activity android:name=".LoginPage" />
-        <activity android:name=".HomePage"></activity>
+        <activity android:name=".HomePage" />
+        <activity
+            android:name=".HelpOfTime"
+            android:label="@string/title_activity_help_of_time"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

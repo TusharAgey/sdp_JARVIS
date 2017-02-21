@@ -31,7 +31,7 @@ public class Main extends AppCompatActivity implements TextToSpeech.OnInitListen
         tts.speak("Welcome to the World of JARVIS", TextToSpeech.QUEUE_FLUSH, null);
         if(db.getFlagsCount() == 0){
             db.addFlag(1);
-            Intent intent = new Intent(context, OneTimeHelp.class);
+            Intent intent = new Intent(context, HelpOfTime.class);
             startActivity(intent);
         }
         else{
