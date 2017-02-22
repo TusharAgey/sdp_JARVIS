@@ -65,3 +65,122 @@ public class Contact {
         this._email_id = email_id;
     }
 }
+
+class Account_Pass {
+    //private variables
+    int _id;
+    String _accname;
+    String _accpass;
+    String _accuname;
+    // Empty constructor
+    public Account_Pass(){
+
+    }
+    // constructor
+    public Account_Pass(int id, String accuname, String _accpass, String _accname){
+        this._id = id;
+        this._accuname = accuname;
+        this._accpass = _accpass;
+        this._accname = _accname;
+    }
+
+    // constructor
+    public Account_Pass( String accuname, String _accpass, String _accname){
+        this._accuname = accuname;
+        this._accpass = _accpass;
+        this._accname = _accname;
+    }
+    // getting ID
+    public int getID(){
+        return this._id;
+    }
+
+    // setting id
+    public void setID(int id){
+        this._id = id;
+    }
+
+    // getting name
+    public String getUName(){
+        return this._accuname;
+    }
+
+    // setting name
+    public void setUName(String name){
+        this._accuname = name;
+    }
+
+    // getting phone number
+    public String getname(){
+        return this._accname;
+    }
+
+    // setting phone number
+    public void setname(String name){
+        this._accname = name;
+    }
+
+    // getting phone number
+    public String getpass(){
+        return this._accpass;
+    }
+
+    // setting phone number
+    public void setpassd(String upass){
+        this._accpass = upass;
+    }
+}
+
+class Study {
+    private static final String KEY_ID_STUDY = "id";
+    private static final String KEY_SUBJECT = "subName";
+    private static final String KEY_TOPIC = "topicName";
+    //private variables
+    int _id;
+    String _subName;
+    String _topicName;
+    // Empty constructor
+    public Study(){
+
+    }
+    // constructor
+    public Study(int id, String _subName, String _topicName){
+        this._id = id;
+        this._subName = _subName;
+        this._topicName = _topicName;
+    }
+
+    // constructor
+    public Study(String _subName, String _topicName){
+        this._subName = _subName;
+        this._topicName = _topicName;
+    }
+    // getting ID
+    public int getID(){
+        return this._id;
+    }
+
+    // setting id
+    public void setID(int id){
+        this._id = id;
+    }
+
+    // getting name
+    public String getSubName(){
+        return this._subName;
+    }
+
+    // setting name
+    public void setSubName(String name){
+        this._subName = name;
+    }
+
+    // getting phone number
+    public String getTopic(){ return this._topicName; }
+
+    // setting phone number
+    public void setTopic(String name){
+        this._topicName = name;
+    }
+
+}
