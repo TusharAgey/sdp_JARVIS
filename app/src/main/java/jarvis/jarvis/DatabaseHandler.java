@@ -91,7 +91,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.insert(TABLE_CONTACTS, null, values);
         //db.close(); // Closing database connection
     }
-
     // Getting single contact
     Contact getContact(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -107,28 +106,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // return contact
         return contact;
     }
-
-
-
-    void addFlag(int num) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(KEY_FLAG, num); // Contact Name
-        // Inserting Row
-        db.insert(TABLE_Flags, null, values);
-        //db.close(); // Closing database connection
-    }
-
-    int getFlagsCount() {
-        String countQuery = "SELECT  * FROM " + TABLE_Flags;
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(countQuery, null);
-        //cursor.close();
-
-        // return count
-        return cursor.getCount();
-    }
-
     // Getting All Contacts
     List<Contact> getAllContacts() {
         List<Contact> contactList = new ArrayList<Contact>();
@@ -154,6 +131,104 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // return contact list
         return contactList;
     }
+
+    //Add flag
+    void addFlag(int num) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(KEY_FLAG, num); // Contact Name
+        // Inserting Row
+        db.insert(TABLE_Flags, null, values);
+        //db.close(); // Closing database connection
+    }
+    //Get flag count
+    int getFlagsCount() {
+        String countQuery = "SELECT  * FROM " + TABLE_Flags;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+        //cursor.close();
+
+        // return count
+        return cursor.getCount();
+    }
+
+    //Adding account information
+    void addPass(Account_Pass acc){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_ID_ACC , acc.getID()); // Contact Name
+        values.put(KEY_ACCOUNT, acc.getname()); // Contact Phone
+        values.put(KEY_USERNAME, acc.getUName());
+        values.put(KEY_PASSWORD, acc.getpass());
+        // Inserting Row
+        db.insert(TABLE_ACCOUNTS, null, values);
+        //db.close(); // Closing database connection
+    }
+    // Getting All Accounts Information
+    List<Account_Pass> getAllAccounts() {
+        List<Account_Pass> accList = new ArrayList<Account_Pass>();
+        // Select All Query
+        String selectQuery = "SELECT  * FROM " + TABLE_ACCOUNTS;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                Account_Pass acc = new Account_Pass();
+                acc.setID(Integer.parseInt(cursor.getString(0)));
+                acc.setname(cursor.getString(1));
+                acc.setpassd(cursor.getString(2));
+                acc.setUName(cursor.getString(3));
+                // Adding contact to list
+                accList.add(acc);
+            } while (cursor.moveToNext());
+        }
+
+        // return contact list
+        return accList;
+    }
+
+    //Adding account information
+    void addStudy(Study study){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_ID_STUDY , study.getID()); // Contact Name
+        values.put(KEY_SUBJECT, study.getSubName()); // Contact Phone
+        values.put(KEY_TOPIC, study.getTopic());
+        // Inserting Row
+        db.insert(TABLE_STUDY, null, values);
+        //db.close(); // Closing database connection
+    }
+    // Getting All Accounts Information
+    List<Study> getAllStudy() {
+        List<Study> stdy = new ArrayList<Study>();
+        // Select All Query
+        String selectQuery = "SELECT  * FROM " + TABLE_STUDY;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                Study  st = new Study();
+                st.setID(Integer.parseInt(cursor.getString(0)));
+                st.setSubName(cursor.getString(1));
+                st.setTopic(cursor.getString(2));
+                // Adding contact to list
+                stdy.add(st);
+            } while (cursor.moveToNext());
+        }
+        // return contact list
+        return stdy;
+    }
+
+
+
 
     /*// Updating single contact
     public int updateContact(Contact contact) {
