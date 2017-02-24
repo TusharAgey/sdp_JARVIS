@@ -131,17 +131,18 @@ class Managers{
         }
     }
     private void contactManager(){
-        //Intent intent = new Intent(context, SignUp.class);
-        //pag.startActivity(intent);
-        Log.e("CTM", "managing contacts");
+        Intent intent = new Intent(context, ContactManager.class);
+        pag.startActivity(intent);
     }
 
     private void passwordManager(){
-
+        Intent intent = new Intent(context, PasswordManager.class);
+        pag.startActivity(intent);
     }
 
     private void studyManager(){
-
+        Intent intent = new Intent(context, StudyManager.class);
+        pag.startActivity(intent);
     }
     private void introductionManager(){
 

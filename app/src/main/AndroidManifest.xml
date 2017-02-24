@@ -22,7 +22,10 @@
         <activity
             android:name=".HelpOfTime"
             android:label="@string/title_activity_help_of_time"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".StudyManager" />
+        <activity android:name=".PasswordManager" />
+        <activity android:name=".ContactManager"></activity>
     </application>
 
 </manifest>
