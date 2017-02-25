@@ -8,75 +8,80 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="jarvis.jarvis.StudyManager">
+    tools:context="jarvis.jarvis.StudyManager"
+    android:background="@drawable/study4">
 
-    <TextView
-        android:text="Study Manager"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/textView8" />
-
-    <ListView
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignTop="@+id/button2"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="71dp" />
+        android:weightSum="1">
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text="Name"
-        android:ems="10"
-        android:id="@+id/editText3"
-        android:layout_above="@+id/button2"
-        android:layout_alignLeft="@+id/textView8"
-        android:layout_alignStart="@+id/textView8"
-        android:layout_marginBottom="64dp" />
+        <TextView
+            android:text="Study Manager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView"
+            android:gravity="center_horizontal"
+            android:textColor="@android:color/background_light"
+            android:textSize="36sp" />
 
-    <TextView
-        android:text="Topic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/editText3"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="11dp"
-        android:id="@+id/textView9" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/editText12"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical|center_horizontal"
+            android:hint="Subject "
+            android:textColor="@android:color/background_light"
+            android:textColorHint="@android:color/background_light"
+            android:textSize="24sp" />
 
-    <TextView
-        android:text="Subject"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/textView9"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="34dp"
-        android:id="@+id/textView10" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text="Topic"
+            android:ems="10"
+            android:id="@+id/editText13"
+            android:textSize="24sp"
+            android:textColor="?attr/colorBackgroundFloating"
+            android:textColorHint="@android:color/background_light"
+            android:gravity="center_vertical|center_horizontal" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text="Name"
-        android:ems="10"
-        android:id="@+id/editText5"
-        android:layout_alignBaseline="@+id/textView10"
-        android:layout_alignBottom="@+id/textView10"
-        android:layout_alignLeft="@+id/editText3"
-        android:layout_alignStart="@+id/editText3" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:ems="10"
+            android:id="@+id/editText14"
+            android:layout_weight="0.93"
+            android:gravity="top|left"
+            android:hint="Enter Your Notes here"
+            android:textColor="?attr/colorBackgroundFloating"
+            android:textColorHint="@android:color/background_light"
+            android:textSize="24sp" />
 
-    <Button
-        android:text="Save"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="197dp"
-        android:id="@+id/button2"
-        android:layout_alignParentBottom="true"
-        android:layout_alignLeft="@+id/editText3"
-        android:layout_alignStart="@+id/editText3" />
+        <Button
+            android:text="Save"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/button9"
+            android:layout_marginTop="10dp"
+            android:textColor="@android:color/background_dark"
+            android:textSize="20sp"
+            android:background="@android:color/background_light" />
+
+        <Button
+            android:text="Clear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/button10"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/background_light"
+            android:textColor="@android:color/black"
+            android:textSize="20dp" />
+    </LinearLayout>
 </RelativeLayout>

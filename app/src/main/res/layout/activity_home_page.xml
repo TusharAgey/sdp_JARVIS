@@ -8,7 +8,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="jarvis.jarvis.HomePage">
+    tools:context="jarvis.jarvis.HomePage"
+    android:background="@drawable/background">
 
     <EditText
         android:layout_width="wrap_content"
@@ -21,16 +22,17 @@
         android:layout_alignParentStart="true"
         android:layout_toStartOf="@+id/btnSpeak"
         android:layout_alignTop="@+id/btnSpeak"
-        android:layout_toLeftOf="@+id/btnSpeak" />
+        android:layout_toLeftOf="@+id/btnSpeak"
+        android:textColor="?attr/colorBackgroundFloating" />
 
     <ImageButton
         android:id="@+id/btnSpeak"
-        android:src="@drawable/microphones"
-        android:background="@drawable/microphones"
+        android:src="@drawable/mic"
+        android:background="@drawable/mic"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:scaleType="fitXY"
-        android:layout_width="70dp"
-        android:layout_height="70dp" />
+        android:layout_width="50dp"
+        android:layout_height="50dp" />
 </RelativeLayout>

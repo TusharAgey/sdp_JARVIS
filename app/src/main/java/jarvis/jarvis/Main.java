@@ -19,13 +19,13 @@ public class Main extends AppCompatActivity implements TextToSpeech.OnInitListen
         db = new DatabaseHandler(this);
 
         tts = new TextToSpeech(this, this);
-        Button buttonOne = (Button) findViewById(R.id.exitButton);
+        /*Button buttonOne = (Button) findViewById(R.id.exitButton);
         buttonOne.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 finish();
                 System.exit(0);
             }
-        });
+        });*/
     }
     public void onInit(int status) {
         tts.speak("Welcome to the World of JARVIS", TextToSpeech.QUEUE_FLUSH, null);
