@@ -33,6 +33,7 @@ public class LoginPage extends AppCompatActivity implements TextToSpeech.OnInitL
                 }
                 else{
                     Log.e("LG", s);
+                    tts.speak("Wrong Password, please try again.", TextToSpeech.QUEUE_FLUSH, null);
                 }
             }
         });

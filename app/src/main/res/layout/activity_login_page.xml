@@ -36,7 +36,7 @@
             android:id="@+id/passwordTextBox"
             android:layout_marginLeft="70dp"
             android:layout_marginTop="70dp"
-            android:hint="99"
+            android:hint="day-month"
             android:gravity="center_vertical|center_horizontal"
             android:textColorHint="@android:color/black"
             android:textColor="@android:color/black" />

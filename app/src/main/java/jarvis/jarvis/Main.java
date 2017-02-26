@@ -17,27 +17,31 @@ public class Main extends AppCompatActivity implements TextToSpeech.OnInitListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
         db = new DatabaseHandler(this);
-
         tts = new TextToSpeech(this, this);
-        /*Button buttonOne = (Button) findViewById(R.id.exitButton);
-        buttonOne.setOnClickListener(new Button.OnClickListener() {
-            public void onClick(View v) {
-                finish();
-                System.exit(0);
-            }
-        });*/
     }
     public void onInit(int status) {
         tts.speak("Welcome to the World of JARVIS", TextToSpeech.QUEUE_FLUSH, null);
-        if(db.getFlagsCount() == 0){
-            db.addFlag(1);
-            Intent intent = new Intent(context, HelpOfTime.class);
-            startActivity(intent);
-        }
-        else{
-            Intent intent = new Intent(context, LoginPage.class);
-            startActivity(intent);
-        }
-
+        Thread th = new Thread(){
+            public void run(){
+                try {
+                    sleep(4000);
+                    if(db.getFlagsCount() == 0){
+                        db.addFlag(1);
+                        Intent intent = new Intent(context, HelpOfTime.class);
+                        startActivity(intent);
+                    }
+                    else{
+                        Intent intent = new Intent(context, LoginPage.class);
+                        startActivity(intent);
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        th.start();
+    }
+    public static void closeAppNow(){
+        System.exit(0);
     }
 }

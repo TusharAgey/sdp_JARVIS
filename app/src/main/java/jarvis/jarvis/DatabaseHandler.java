@@ -27,7 +27,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // Flags Table Columns names
     private static final String KEY_FLAG = "isFirstTime";
-
+    private static final String KEY_USER_NAME = "myuser";
     // Accounts Table Columns names
     private static final String KEY_ID_ACC = "id";
     private static final String KEY_ACCOUNT = "accName";
@@ -51,7 +51,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(CREATE_CONTACTS_TABLE);
 
         String CREATE_FLAGS_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_Flags + "("
-                + KEY_FLAG + " INTEGER PRIMARY KEY" + ")";
+                + KEY_FLAG + " INTEGER PRIMARY KEY," + KEY_USER_NAME + "Text" + ")";
         db.execSQL(CREATE_FLAGS_TABLE);
 
         String CREATE_STUDY_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_STUDY + "("
@@ -137,6 +137,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_FLAG, num); // Contact Name
+        values.put(KEY_USER_NAME, "");
         // Inserting Row
         db.insert(TABLE_Flags, null, values);
         //db.close(); // Closing database connection
@@ -151,7 +152,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // return count
         return cursor.getCount();
     }
+    public int AddUserName(String userName) {
+        SQLiteDatabase db = this.getWritableDatabase();
 
+        ContentValues values = new ContentValues();
+        values.put(KEY_FLAG, 1); // Contact Name
+        values.put(KEY_USER_NAME, userName);
+
+        // updating row
+        return db.update(TABLE_Flags, values, KEY_FLAG + " = ?",
+                new String[] { String.valueOf(1) });
+    }
     //Adding account information
     void addPass(Account_Pass acc){
         SQLiteDatabase db = this.getWritableDatabase();

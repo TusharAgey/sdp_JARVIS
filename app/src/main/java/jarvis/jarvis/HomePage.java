@@ -120,9 +120,8 @@ class Managers{
             studyManager();
         else if (cmd.contains("introduce someone"))
             introductionManager();
-        else if(cmd.contains("exit")){
-            System.exit(0);
-        }
+        else if(cmd.contains("exit"))
+            Main.closeAppNow();
         else{
             //Now, here is a statement that is not hardcoded.
             //So analyse this statement & it possibly can be a tricky statement.

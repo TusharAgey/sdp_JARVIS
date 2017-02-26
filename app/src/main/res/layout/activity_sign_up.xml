@@ -22,7 +22,7 @@
             android:inputType="textPersonName"
             android:text="Name"
             android:ems="10"
-            android:id="@+id/editText11"
+            android:id="@+id/userNameText"
             android:layout_marginTop="250dp"
             android:layout_marginLeft="70dp"
             android:gravity="center_vertical|center_horizontal"
