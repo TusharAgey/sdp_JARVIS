@@ -38,6 +38,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_ID_STUDY = "id";
     private static final String KEY_SUBJECT = "subName";
     private static final String KEY_TOPIC = "topicName";
+    private static final String KEY_NUM1 = "flagNumberOne";
+    private static final String KEY_NUM2 = "flagNumberTwo";
+
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -51,7 +54,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(CREATE_CONTACTS_TABLE);
 
         String CREATE_FLAGS_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_Flags + "("
-                + KEY_FLAG + " INTEGER PRIMARY KEY," + KEY_USER_NAME + "Text" + ")";
+                + KEY_FLAG + " INTEGER PRIMARY KEY," + KEY_USER_NAME + "Text, " + KEY_NUM1 + " INTEGER, " + KEY_NUM2 + " INTEGER" + ")";
         db.execSQL(CREATE_FLAGS_TABLE);
 
         String CREATE_STUDY_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_STUDY + "("
@@ -152,6 +155,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // return count
         return cursor.getCount();
     }
+    public int addFlagPass(int num1, int num2) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(KEY_FLAG, 1); // Contact Name
+        values.put(KEY_NUM1, num1);
+        values.put(KEY_NUM2, num2);
+
+        // updating row
+        return db.update(TABLE_Flags, values, KEY_FLAG + " = ?",
+                new String[] { String.valueOf(1) });
+    }
     public int AddUserName(String userName) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -237,6 +251,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // return contact list
         return stdy;
     }
+
+
 
 
 

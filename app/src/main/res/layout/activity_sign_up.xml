@@ -20,16 +20,41 @@
             android:layout_width="198dp"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
-            android:text="Name"
             android:ems="10"
             android:id="@+id/userNameText"
-            android:layout_marginTop="250dp"
+            android:layout_marginTop="220dp"
             android:layout_marginLeft="70dp"
             android:gravity="center_vertical|center_horizontal"
             android:hint="Name "
             android:textColor="@android:color/background_dark"
             android:textColorHint="@android:color/black"
             android:textSize="24sp" />
+
+        <EditText
+            android:layout_width="201dp"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:layout_marginLeft="70dp"
+            android:hint="Number1"
+            android:textAlignment="center"
+            android:ems="10"
+            android:textColor="@android:color/background_dark"
+            android:textColorHint="@android:color/black"
+            android:textSize="24sp"
+            android:id="@+id/passNum1" />
+
+        <EditText
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:layout_marginLeft="70dp"
+            android:hint="Number2"
+            android:textAlignment="center"
+            android:ems="10"
+            android:textColor="@android:color/background_dark"
+            android:textColorHint="@android:color/black"
+            android:textSize="24sp"
+            android:id="@+id/passNum2" />
 
         <Button
             android:text="Submit"

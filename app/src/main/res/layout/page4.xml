@@ -5,22 +5,50 @@
     android:background="@drawable/abc"
     tools:context="jarvis.jarvis.HelpOfTime$PlaceholderFragment">
 
+
     <TextView
         android:id="@+id/section_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Your Personal Assistant" />
+        android:textSize="20dp"
+        android:textColor="#FFFFFF"
+        android:text="Enjoy!!"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="21dp"
+        android:id="@+id/progressBar3"
+        android:layout_width="300dp"
+        android:layout_below="@+id/section_label"
+        android:layout_centerHorizontal="true"
+        android:max="100"
+        android:progress="100" />
+
+    <EditText
+        android:layout_width="500dp"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:id="@+id/editText"
+        android:text="Now, hit next and have fun!! "
+        android:textColor="#FFFFFF"
+        android:textAlignment="center"
+        android:layout_marginBottom="49dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:text="Next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="25dp"
-        android:layout_marginEnd="25dp"
-        android:layout_marginBottom="103dp"
+        android:layout_marginRight="19dp"
+        android:layout_marginEnd="19dp"
         android:id="@+id/clickMeButton"
         android:onClick="GoNext"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@+id/editText"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
