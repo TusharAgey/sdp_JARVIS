@@ -27,9 +27,10 @@
         android:progress="100" />
 
     <EditText
+        android:enabled="false"
         android:layout_width="500dp"
         android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
+        android:inputType="none"
         android:ems="10"
         android:id="@+id/editText"
         android:text="Now, hit next and have fun!! "

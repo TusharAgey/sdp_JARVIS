@@ -22,6 +22,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20dp"
+        android:enabled="false"
+        android:inputType="none"
         android:textColor="#FFFFFF"
         android:text="Your Personal Assistant"
         android:layout_alignParentTop="true"
@@ -30,7 +32,7 @@
     <EditText
         android:layout_width="500dp"
         android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
+        android:inputType="none"
         android:ems="10"
         android:id="@+id/editText"
         android:text="Welcome to the world of JARVIS
@@ -41,6 +43,7 @@
         android:textAlignment="center"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="38dp" />
 
 </RelativeLayout>

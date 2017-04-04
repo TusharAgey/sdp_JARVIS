@@ -1,10 +1,13 @@
 package jarvis.jarvis;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class ContactManager extends AppCompatActivity {
 
@@ -15,6 +18,8 @@ public class ContactManager extends AppCompatActivity {
         Button clr = (Button) findViewById(R.id.clearButton);
         Button sv = (Button) findViewById(R.id.saveButton);
         final DatabaseHandler db = new DatabaseHandler(this);
+        final Button show = (Button)findViewById(R.id.buttonShowContacts);
+        final Context context = this;
 
         final EditText nm = (EditText) findViewById(R.id.contactName);
         final EditText mobno = (EditText) findViewById(R.id.contactNumber);
@@ -30,10 +35,26 @@ public class ContactManager extends AppCompatActivity {
 
         sv.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
+                if(nm.getText().toString().equals("") || mobno.getText().toString().equals("") || email.getText().toString().equals("")){
+                    Toast.makeText(getApplicationContext(),
+                            "Please enter every field!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 Contact ct = new Contact(nm.getText().toString(), mobno.getText().toString(), email.getText().toString());
                 db.addContact(ct);
+                nm.setText("");
+                mobno.setText("");
+                email.setText("");
+                Toast.makeText(getApplicationContext(),
+                        "Contact Added!", Toast.LENGTH_SHORT).show();
             }
         });
-
+        show.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View v) {
+                DisplayData.data = "contact";
+                Intent intent = new Intent(context, DisplayData.class);
+                startActivity(intent);
+            }
+        });
     }
 }

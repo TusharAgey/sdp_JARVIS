@@ -16,16 +16,18 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.Random;
 
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
 
 public class HomePage extends AppCompatActivity implements TextToSpeech.OnInitListener{
     private TextToSpeech tts;
     private TextView txtSpeechInput;
     private ImageButton btnSpeak;
+    public static int flag = 0;
+    public static String que, ans1, ans2, ans3;
     private final int REQ_CODE_SPEECH_INPUT = 100;
     Managers mngr;
-
+    DatabaseHandler db = new DatabaseHandler(this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -38,7 +40,7 @@ public class HomePage extends AppCompatActivity implements TextToSpeech.OnInitLi
         tts = new TextToSpeech(this, this);
 
         // hide the action bar
-       // getActionBar().hide();
+        // getActionBar().hide();
 
         btnSpeak.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,7 +72,12 @@ public class HomePage extends AppCompatActivity implements TextToSpeech.OnInitLi
                 if (resultCode == RESULT_OK && null != data) {
                     ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     txtSpeechInput.setText(result.get(0));
-                    mngr.analyse(result.get(0), this);
+                    try {
+                        mngr.analyse(result.get(0), this);
+                    }
+                    catch(Exception e){
+                        Log.e("ERR:", e.getMessage() + " err");
+                    }
                     /*
                      * Here, we get the result of the speech input.
                      * Now create a class with methods accordingly and then make the application do the required actions.
@@ -90,15 +97,14 @@ public class HomePage extends AppCompatActivity implements TextToSpeech.OnInitLi
         int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
         String greet = "";
         if(timeOfDay >= 0 && timeOfDay < 12)
-            greet = "Good Morning";
+            greet = "Good Morning" + db.getUserName();
         else if(timeOfDay >= 12 && timeOfDay < 16)
-            greet = "Good Afternoon";
+            greet = "Good Afternoon" + db.getUserName();
         else if(timeOfDay >= 16 && timeOfDay < 21)
-            greet = "Good Evening";
+            greet = "Good Evening" + db.getUserName();
         else if(timeOfDay >= 21 && timeOfDay < 24)
-            greet = "Hello!";
+            greet = "Hello!" + db.getUserName();
         speakOut(greet);
-        Log.e("TTS", "whatever");
     }
     void speakOut(String spk){
         tts.speak(spk, TextToSpeech.QUEUE_FLUSH, null);
@@ -107,7 +113,7 @@ public class HomePage extends AppCompatActivity implements TextToSpeech.OnInitLi
 }
 
 class Managers{
-   private  HomePage pag;
+    private  HomePage pag;
     private Context context;
     void analyse(String cmd, HomePage p) {
         pag = p;
@@ -123,10 +129,54 @@ class Managers{
         else if(cmd.contains("exit"))
             Main.closeAppNow();
         else{
-            //Now, here is a statement that is not hardcoded.
-            //So analyse this statement & it possibly can be a tricky statement.
-            //Its upto you now! ;-) //decision tree might help
+            //search for this question into the database
+            if(HomePage.flag == 1){
+                HomePage.ans1 = cmd;
+                HomePage.flag = 2;
+                return;
+            }
+            else if(HomePage.flag == 2){
+                HomePage.ans2 = cmd;
+                HomePage.flag = 3;
+                return;
+            }
+            else if(HomePage.flag == 3){
+                HomePage.ans3 = cmd;
+                DatabaseHandler db = new DatabaseHandler(p);
+                db.learnIt(HomePage.que, HomePage.ans1, HomePage.ans2, HomePage.ans3);
+                p.speakOut("Wonderful Thanks!");
+                HomePage.flag = 0;
+                return;
+            }
+            DatabaseHandler db = new DatabaseHandler(p);
+            Results R = new Results();
+            Log.e("wt:", "asd");
+            try {
+                R = db.searchQuery(cmd);
+            }
+            catch(Exception ex){
 
+                Log.e("err: ", ex.getMessage() + " err");
+            }
+
+            Log.e("ERR:", R.ans1 + " asd");
+            if(R.status == true){
+                Random r = new Random();
+                int num = r.nextInt(3) + 1;// = get random number between 1 to 3.
+                Log.e("un:", Integer.valueOf(num).toString());
+                if(num == 1)
+                    p.speakOut(R.ans1);
+                else if(num == 2)
+                    p.speakOut(R.ans2);
+                else if(num == 3)
+                    p.speakOut(R.ans3);
+            }
+            else {
+                HomePage.que = cmd;
+                Log.e("awd", "what?");
+                p.speakOut("I couldn't understand this, can you suggest 3 good replies?");
+                HomePage.flag = 1;
+            }
         }
     }
     private void contactManager(){
@@ -148,4 +198,3 @@ class Managers{
     }
 
 }
-

@@ -135,26 +135,32 @@ class Study {
     private static final String KEY_ID_STUDY = "id";
     private static final String KEY_SUBJECT = "subName";
     private static final String KEY_TOPIC = "topicName";
+    private static final String Key_DESCTIPTION = "subDesc";
     //private variables
     int _id;
     String _subName;
     String _topicName;
+    String _subDesc;
     // Empty constructor
     public Study(){
 
     }
     // constructor
-    public Study(int id, String _subName, String _topicName){
+    public Study(int id, String _subName, String _topicName, String _subDesc){
         this._id = id;
         this._subName = _subName;
         this._topicName = _topicName;
+        this._subDesc = _subDesc;
     }
-
     // constructor
-    public Study(String _subName, String _topicName){
+    public Study(String _subName, String _topicName, String _subDesc){
         this._subName = _subName;
         this._topicName = _topicName;
+        this._subDesc = _subDesc;
     }
+
+
+
     // getting ID
     public int getID(){
         return this._id;
@@ -182,5 +188,108 @@ class Study {
     public void setTopic(String name){
         this._topicName = name;
     }
+
+    public void setDesc(String name){this._subDesc = name;}
+
+    public String getDesc(){return this._subDesc;}
+
+}
+
+class Results{
+
+    public boolean status;
+    public String ans1, ans2, ans3;
+    public String getString(int id){
+        if(id == 1)
+            return ans1;
+        if(id == 2)
+            return ans2;
+        if(id == 3)
+            return ans3;
+        return "default";
+    }
+}
+
+class Learning{
+    private static final String KEY_ID_LEARN = "id";
+    private static final String KEY_QUESTION = "question";
+    private static final String KEY_ANS1 = "answer1";
+    private static final String KEY_ANS2 = "answer2";
+    private static final String KEY_ANS3 = "answer3";
+    //private variables
+    int _id;
+    String _question;
+    String _answer1;
+    String _answer2;
+    String _answer3;
+    // Empty constructor
+    public Learning(){
+
+    }
+    // constructor
+    public Learning(int id, String _question, String _answer1, String _answer2, String _answer3){
+        this._id = id;
+        this._question = _question;
+        this._answer1 = _answer1;
+        this._answer2 = _answer2;
+        this._answer3 = _answer3;
+    }
+    // constructor
+    public Learning(String _question, String _answer1, String _answer2, String _answer3){
+        this._question = _question;
+        this._answer1 = _answer1;
+        this._answer2 = _answer2;
+        this._answer3 = _answer3;
+    }
+
+
+
+    // getting ID
+    public int getID(){
+        return this._id;
+    }
+
+    // setting id
+    public void setID(int id){
+        this._id = id;
+    }
+
+    // getting q
+    public String getQuestion(){
+        return this._question;
+    }
+
+    // setting q
+    public void setQuestion(String name){
+        this._question = name;
+    }
+
+    public String getAns1(){
+        return this._answer1;
+    }
+
+    // setting q
+    public void setAns1(String name){
+        this._answer1 = name;
+    }
+
+    public String getAns2(){
+        return this._answer2;
+    }
+
+    // setting q
+    public void setAns2(String name){
+        this._answer2 = name;
+    }
+
+    public String getAns3(){
+        return this._answer3;
+    }
+
+    // setting q
+    public void setAns3(String name){
+        this._answer3 = name;
+    }
+
 
 }

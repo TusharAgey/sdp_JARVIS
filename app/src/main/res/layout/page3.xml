@@ -25,17 +25,19 @@
         android:layout_centerHorizontal="true"
         android:max="100"
         android:progress="75" />
+
     <EditText
         android:layout_width="500dp"
         android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
+        android:inputType="none"
         android:ems="10"
         android:id="@+id/editText"
-        android:text="while signing up, Please enter these two values so that I can create your password as number1 + number2 + Date + Month
-        Eg:- if its 01/02/2017 today, and you have entered 2 numbers as 5 and 6, then the password is 1 + 2 + 5 + 6 =14        "
+        android:enabled="false"
+        android:text="while signing up, please enter the username and password. I'll use that username to address you and the password to identify you! happy taking!"
         android:textColor="#FFFFFF"
         android:textAlignment="center"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="25dp" />
 </RelativeLayout>

@@ -33,28 +33,15 @@
         <EditText
             android:layout_width="201dp"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
+            android:inputType="numberPassword"
             android:layout_marginLeft="70dp"
-            android:hint="Number1"
+            android:hint="Password"
             android:textAlignment="center"
             android:ems="10"
             android:textColor="@android:color/background_dark"
             android:textColorHint="@android:color/black"
             android:textSize="24sp"
             android:id="@+id/passNum1" />
-
-        <EditText
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:layout_marginLeft="70dp"
-            android:hint="Number2"
-            android:textAlignment="center"
-            android:ems="10"
-            android:textColor="@android:color/background_dark"
-            android:textColorHint="@android:color/black"
-            android:textSize="24sp"
-            android:id="@+id/passNum2" />
 
         <Button
             android:text="Submit"

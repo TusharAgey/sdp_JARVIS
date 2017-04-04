@@ -9,6 +9,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
@@ -18,7 +19,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String TABLE_Flags = "flagTable";
     private static final String TABLE_ACCOUNTS = "accountsTable";
     private static final String TABLE_STUDY = "studyTable";
-
+    private static final String TABLE_LEARN = "learnTable";
     // Contacts Table Columns names
     private static final String KEY_ID = "id";
     private static final String KEY_NAME = "name";
@@ -28,6 +29,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // Flags Table Columns names
     private static final String KEY_FLAG = "isFirstTime";
     private static final String KEY_USER_NAME = "myuser";
+    private static final String KEY_NUM1 = "flagNumberOne";
+    private static final String KEY_NUM2 = "flagNumberTwo";
+
     // Accounts Table Columns names
     private static final String KEY_ID_ACC = "id";
     private static final String KEY_ACCOUNT = "accName";
@@ -38,8 +42,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_ID_STUDY = "id";
     private static final String KEY_SUBJECT = "subName";
     private static final String KEY_TOPIC = "topicName";
-    private static final String KEY_NUM1 = "flagNumberOne";
-    private static final String KEY_NUM2 = "flagNumberTwo";
+    private static final String KEY_DESC = "subDescription";
+
+    // Learning Table Columns names
+    private static final String KEY_ID_LEARN = "id";
+    private static final String KEY_QUESTION = "question";
+    private static final String KEY_ANS1 = "answer1";
+    private static final String KEY_ANS2 = "answer2";
+    private static final String KEY_ANS3 = "answer3";
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -48,22 +58,32 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // Creating Tables
     @Override
     public void onCreate(SQLiteDatabase db) {
+        String CREATE_LEARNING_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_LEARN + "("
+                + KEY_ID_LEARN + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + KEY_QUESTION + " TEXT, "
+                + KEY_ANS1 + " TEXT, "
+                + KEY_ANS2 + " TEXT, "
+                + KEY_ANS3 + " TEXT "
+                +
+                ")";
+        db.execSQL(CREATE_LEARNING_TABLE);
+
         String CREATE_CONTACTS_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_CONTACTS + "("
-                + KEY_ID + " INTEGER PRIMARY KEY," + KEY_NAME + " TEXT,"
+                + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_NAME + " TEXT,"
                 + KEY_PH_NO + " TEXT," + KEY_PH_EMAIL + " TEXT" + ")";
         db.execSQL(CREATE_CONTACTS_TABLE);
 
         String CREATE_FLAGS_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_Flags + "("
-                + KEY_FLAG + " INTEGER PRIMARY KEY," + KEY_USER_NAME + "Text, " + KEY_NUM1 + " INTEGER, " + KEY_NUM2 + " INTEGER" + ")";
+                + KEY_FLAG + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_USER_NAME + " Text, " + KEY_NUM1 + " INTEGER, " + KEY_NUM2 + " INTEGER" + ")";
         db.execSQL(CREATE_FLAGS_TABLE);
 
         String CREATE_STUDY_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_STUDY + "("
-                + KEY_ID_STUDY + " INTEGER PRIMARY KEY," + KEY_SUBJECT + " TEXT,"
-                + KEY_TOPIC + " TEXT" + ")";
+                + KEY_ID_STUDY + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_SUBJECT + " TEXT,"
+                + KEY_TOPIC + " TEXT, " + KEY_DESC + " TEXT" + ")";
         db.execSQL(CREATE_STUDY_TABLE);
 
         String CREATE_ACCOUNTS_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_ACCOUNTS + "("
-                + KEY_ID_ACC + " INTEGER PRIMARY KEY, " + KEY_ACCOUNT + " TEXT,"
+                + KEY_ID_ACC + " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_ACCOUNT + " TEXT,"
                 + KEY_PASSWORD + " TEXT, " + KEY_USERNAME + " TEXT" + ")";
         db.execSQL(CREATE_ACCOUNTS_TABLE);
     }
@@ -155,17 +175,28 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // return count
         return cursor.getCount();
     }
-    public int addFlagPass(int num1, int num2) {
+    public int addFlagPass(int num1) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_FLAG, 1); // Contact Name
         values.put(KEY_NUM1, num1);
-        values.put(KEY_NUM2, num2);
 
         // updating row
         return db.update(TABLE_Flags, values, KEY_FLAG + " = ?",
                 new String[] { String.valueOf(1) });
     }
+    public int getFlagPass(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor corsor = db.rawQuery("SELECT * from " + TABLE_Flags + " where " + KEY_FLAG + " = ? ",
+                new String[] {String.valueOf(1)});
+        if(corsor.moveToFirst()) {
+            do{
+                return corsor.getInt(corsor.getColumnIndex(KEY_NUM1));
+            }while(corsor.moveToNext());
+        }
+        return 1;
+    }
+
     public int AddUserName(String userName) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -182,7 +213,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(KEY_ID_ACC , acc.getID()); // Contact Name
         values.put(KEY_ACCOUNT, acc.getname()); // Contact Phone
         values.put(KEY_USERNAME, acc.getUName());
         values.put(KEY_PASSWORD, acc.getpass());
@@ -221,9 +251,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(KEY_ID_STUDY , study.getID()); // Contact Name
         values.put(KEY_SUBJECT, study.getSubName()); // Contact Phone
         values.put(KEY_TOPIC, study.getTopic());
+        values.put(KEY_DESC, study.getDesc());
         // Inserting Row
         db.insert(TABLE_STUDY, null, values);
         //db.close(); // Closing database connection
@@ -244,6 +274,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 st.setID(Integer.parseInt(cursor.getString(0)));
                 st.setSubName(cursor.getString(1));
                 st.setTopic(cursor.getString(2));
+                st.setDesc(cursor.getString(3));
                 // Adding contact to list
                 stdy.add(st);
             } while (cursor.moveToNext());
@@ -252,10 +283,51 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return stdy;
     }
 
+    public Results searchQuery(String cmd) {
+        Results R = new Results();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor corsor = db.rawQuery("SELECT * from " + TABLE_LEARN, null);
+        corsor.moveToFirst();
+        if(corsor.moveToFirst()){
+            do{
+                if(corsor.getString(corsor.getColumnIndex(KEY_QUESTION)).contains(cmd)){
+                    R.ans1 = corsor.getString(corsor.getColumnIndex(KEY_ANS1));
+                    R.ans2 = corsor.getString(corsor.getColumnIndex(KEY_ANS2));
+                    R.ans3 = corsor.getString(corsor.getColumnIndex(KEY_ANS3));
+                    R.status = true;
+                    return R;
+                }
+            }while(corsor.moveToNext());
+        }
+        R.status = false;
+        R.ans1 = "get from db";
+        R.ans2 = "get from db";
+        R.ans3 = "get from db";
+        return R;
+    }
 
+    public String getUserName() {
+        String countQuery = "SELECT  * FROM " + TABLE_Flags;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+        //cursor.close();
 
+        // return userName
+        cursor.moveToFirst();
+        return cursor.getString(cursor.getColumnIndex(KEY_USER_NAME));
+    }
 
+    public void learnIt(String que, String ans1, String ans2, String ans3) {
+        SQLiteDatabase db = this.getWritableDatabase();
 
+        ContentValues values = new ContentValues();
+        values.put(KEY_QUESTION, que);
+        values.put(KEY_ANS1, ans1);
+        values.put(KEY_ANS2, ans2);
+        values.put(KEY_ANS3, ans3);
+        // Inserting Row
+        db.insert(TABLE_LEARN, null, values);
+    }
 
     /*// Updating single contact
     public int updateContact(Contact contact) {
