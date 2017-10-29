@@ -25,7 +25,7 @@ public class HomePage extends AppCompatActivity implements TextToSpeech.OnInitLi
     private ImageButton btnSpeak;
     private final int REQ_CODE_SPEECH_INPUT = 100;
     Managers mngr;
-
+    DatabaseHandler db = new DatabaseHandler(this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -38,7 +38,7 @@ public class HomePage extends AppCompatActivity implements TextToSpeech.OnInitLi
         tts = new TextToSpeech(this, this);
 
         // hide the action bar
-       // getActionBar().hide();
+        // getActionBar().hide();
 
         btnSpeak.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,15 +90,14 @@ public class HomePage extends AppCompatActivity implements TextToSpeech.OnInitLi
         int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
         String greet = "";
         if(timeOfDay >= 0 && timeOfDay < 12)
-            greet = "Good Morning";
+            greet = "Good Morning" + db.getUserName();
         else if(timeOfDay >= 12 && timeOfDay < 16)
-            greet = "Good Afternoon";
+            greet = "Good Afternoon" + db.getUserName();
         else if(timeOfDay >= 16 && timeOfDay < 21)
-            greet = "Good Evening";
+            greet = "Good Evening" + db.getUserName();
         else if(timeOfDay >= 21 && timeOfDay < 24)
-            greet = "Hello!";
+            greet = "Hello!" + db.getUserName();
         speakOut(greet);
-        Log.e("TTS", "whatever");
     }
     void speakOut(String spk){
         tts.speak(spk, TextToSpeech.QUEUE_FLUSH, null);
@@ -107,7 +106,7 @@ public class HomePage extends AppCompatActivity implements TextToSpeech.OnInitLi
 }
 
 class Managers{
-   private  HomePage pag;
+    private  HomePage pag;
     private Context context;
     void analyse(String cmd, HomePage p) {
         pag = p;
@@ -123,10 +122,19 @@ class Managers{
         else if(cmd.contains("exit"))
             Main.closeAppNow();
         else{
-            //Now, here is a statement that is not hardcoded.
-            //So analyse this statement & it possibly can be a tricky statement.
-            //Its upto you now! ;-) //decision tree might help
-
+            //search for this question into the database
+            DatabaseHandler db = new DatabaseHandler(p);
+            Results R = db.searchQuery(cmd);
+            if(R.status){
+                Integer num = 1;// = get random number between 1 to 3.
+                p.speakOut(R.getString(num));
+            }
+            else{
+                p.speakOut("I couldn't understand this, can you suggest 3 good replies? (type them)");
+            }
+            //else
+            //ask for 3 good answers to this statement.
+            //insert these 4 fields into chatTable 1 query & 3 returns.
         }
     }
     private void contactManager(){

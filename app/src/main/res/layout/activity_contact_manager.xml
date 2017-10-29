@@ -94,5 +94,17 @@
             android:textColor="@android:color/background_dark"
             android:textSize="20sp" />
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.12"
+            android:id="@+id/buttonShowContacts"
+            android:layout_marginTop="10dp"
+            android:textSize="20sp"
+            android:background="@android:color/background_light"
+            android:text="Show"
+
+            android:textColor="@android:color/background_dark" />
+
     </LinearLayout>
 </RelativeLayout>

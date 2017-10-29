@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:ems="10"
-            android:id="@+id/editText12"
+            android:id="@+id/subjectEditText"
             android:layout_marginTop="10dp"
             android:gravity="center_vertical|center_horizontal"
             android:hint="Subject "
@@ -45,7 +45,7 @@
             android:inputType="textPersonName"
             android:text="Topic"
             android:ems="10"
-            android:id="@+id/editText13"
+            android:id="@+id/topicEditText"
             android:textSize="24sp"
             android:textColor="?attr/colorBackgroundFloating"
             android:textColorHint="@android:color/background_light"
@@ -56,7 +56,7 @@
             android:layout_height="wrap_content"
             android:inputType="textMultiLine"
             android:ems="10"
-            android:id="@+id/editText14"
+            android:id="@+id/noteEditText"
             android:layout_weight="0.93"
             android:gravity="top|left"
             android:hint="Enter Your Notes here"
@@ -73,6 +73,16 @@
             android:textColor="@android:color/background_dark"
             android:textSize="20sp"
             android:background="@android:color/background_light" />
+
+        <Button
+            android:text="Show"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/showDataButton"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/background_light"
+            android:textColor="@android:color/black"
+            android:textSize="20dp" />
 
         <Button
             android:text="Clear"

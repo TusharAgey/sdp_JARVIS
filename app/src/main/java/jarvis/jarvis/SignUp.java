@@ -21,17 +21,29 @@ public class SignUp extends AppCompatActivity implements TextToSpeech.OnInitList
         tts = new TextToSpeech(this, this);
         db = new DatabaseHandler(this);
         final EditText etx = (EditText) findViewById(R.id.userNameText);
+        final EditText num1 = (EditText) findViewById(R.id.passNum1);
+
         Button buttonOne = (Button) findViewById(R.id.signupButton);
         buttonOne.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
-                db.AddUserName(etx.getText().toString());
-                Intent intent = new Intent(context, LoginPage.class);
-                startActivity(intent);
+                if(num1.getText().toString().equals("") || etx.getText().toString().equals("")){
+                    speakIt("Please enter every field");
+                    return;
+                }
+                else{
+                    db.addFlagPass(Integer.parseInt(num1.getText().toString()));
+                    db.AddUserName(etx.getText().toString());
+                    Intent intent = new Intent(context, LoginPage.class);
+                    startActivity(intent);
+                }
             }
         });
     }
     public void onInit(int status) {
-
-        tts.speak("I'm JARVIS, what should I call you?", TextToSpeech.QUEUE_FLUSH, null);
+        speakIt("I'm JARVIS, what should I call you?");
     }
+    public void speakIt(String str){
+        tts.speak(str, TextToSpeech.QUEUE_FLUSH, null);
+    }
+
 }
