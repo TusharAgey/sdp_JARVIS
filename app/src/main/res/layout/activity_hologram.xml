@@ -4,15 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="jarvis.jarvis.Hologram"
     android:background="@color/BluishBlack"
-    >
+    tools:context="jarvis.jarvis.Hologram">
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/gif1"
             android:layout_width="350dp"
             android:layout_height="250dp"
             android:layout_marginLeft="130dp"
@@ -21,6 +21,7 @@
             tools:layout_editor_absoluteY="0dp" />
 
         <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/gif2"
             android:layout_width="350dp"
             android:layout_height="250dp"
             android:layout_marginLeft="130dp"
@@ -31,6 +32,7 @@
             tools:layout_editor_absoluteY="0dp" />
 
         <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/gif3"
             android:layout_width="350dp"
             android:layout_height="450dp"
             android:layout_marginLeft="-100dp"
@@ -39,7 +41,9 @@
             android:src="@drawable/ideal"
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="189dp" />
+
         <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/gif4"
             android:layout_width="350dp"
             android:layout_height="450dp"
             android:layout_marginLeft="350dp"
@@ -48,5 +52,14 @@
             android:src="@drawable/ideal"
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="189dp" />
+
+        <Button
+            android:id="@+id/btnSpeaker"
+            android:layout_width="41dp"
+            android:layout_height="wrap_content"
+            android:width="4pt"
+            android:text="SK"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="16dp" />
     </FrameLayout>
 </android.support.constraint.ConstraintLayout>
