@@ -29,9 +29,9 @@ public class MegaStart extends AppCompatActivity {
 
         hologram.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
-                Log.e("Start", "Hello ATA hologram");
+                Intent intent = new Intent(context, Hologram.class);
+                startActivity(intent);
             }
         });
     }
-
 }
