@@ -44,7 +44,7 @@ public class HelpOfTime extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help_of_time);
-       Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -55,7 +55,7 @@ public class HelpOfTime extends AppCompatActivity {
         mViewPager.setAdapter(mSectionsPagerAdapter);
     }
 
-    void GoNext(View view)
+    public void GoNext(View view)
     {
         Intent intent = new Intent(context, SignUp.class);
         startActivity(intent);
@@ -78,7 +78,7 @@ public class HelpOfTime extends AppCompatActivity {
         if (id == R.id.action_settings) {
             return true;
         }
-
+        
         return super.onOptionsItemSelected(item);
     }
 
@@ -132,7 +132,7 @@ public class HelpOfTime extends AppCompatActivity {
             }
             else {
                 View rootView = inflater.inflate(R.layout.activity_help_of_time, container, false);
-                TextView textView = (TextView) rootView.findViewById(R.id.section_label);
+                TextView textView = rootView.findViewById(R.id.section_label);
                 textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
                 return rootView;
             }
@@ -157,7 +157,7 @@ public class HelpOfTime extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
+            // Show 4 total pages.
             return 4;
         }
 
