@@ -51,7 +51,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(CREATE_CONTACTS_TABLE);
 
         String CREATE_FLAGS_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_Flags + "("
-                + KEY_FLAG + " INTEGER PRIMARY KEY," + KEY_USER_NAME + "Text" + ")";
+                + KEY_FLAG + " INTEGER PRIMARY KEY," + KEY_USER_NAME + " Text" + ")";
         db.execSQL(CREATE_FLAGS_TABLE);
 
         String CREATE_STUDY_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_STUDY + "("
