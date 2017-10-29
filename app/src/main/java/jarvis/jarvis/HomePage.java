@@ -16,6 +16,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.Random;
 
 import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
 
@@ -25,6 +26,8 @@ public class HomePage extends AppCompatActivity implements TextToSpeech.OnInitLi
     private ImageButton btnSpeak;
     private final int REQ_CODE_SPEECH_INPUT = 100;
     Managers mngr;
+    public static int flag = 0;
+    public static String ans1, ans2, ans3, que;
     DatabaseHandler db = new DatabaseHandler(this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,30 +116,52 @@ class Managers{
         context = pag;
         if(cmd.contains("manage my contact"))
             contactManager();
-        else if(cmd.contains("manage my password"))
-            passwordManager();
-        else if(cmd.contains("manage my study"))
-            studyManager();
-        else if (cmd.contains("introduce someone"))
-            introductionManager();
-        else if(cmd.contains("exit"))
-            Main.closeAppNow();
-        else{
-            //search for this question into the database
+        //search for this question into the database
+        if(HomePage.flag == 1){
+            HomePage.ans1 = cmd;
+            HomePage.flag = 2;
+            return;
+        }
+        else if(HomePage.flag == 2){
+            HomePage.ans2 = cmd;
+            HomePage.flag = 3;
+            return;
+        }
+        else if(HomePage.flag == 3){
+            HomePage.ans3 = cmd;
             DatabaseHandler db = new DatabaseHandler(p);
-            Results R = db.searchQuery(cmd);
-            if(R.status){
-                Integer num = 1;// = get random number between 1 to 3.
-                p.speakOut(R.getString(num));
-            }
-            else{
-                p.speakOut("I couldn't understand this, can you suggest 3 good replies? (type them)");
-            }
-            //else
-            //ask for 3 good answers to this statement.
-            //insert these 4 fields into chatTable 1 query & 3 returns.
+            db.learnIt(HomePage.que, HomePage.ans1,
+                    HomePage.ans2, HomePage.ans3);
+            p.speakOut("Wonderful Thanks!");
+            HomePage.flag = 0;
+            return;
+        }
+        DatabaseHandler db = new DatabaseHandler(p);
+        Results R = new Results();
+        try {
+            R = db.searchQuery(cmd);
+        }
+        catch(Exception ex){
+            Log.e("err: ", ex.getMessage() + " err");
+        }
+        if(R.status == true){
+            Random r = new Random();
+            int num = r.nextInt(3) + 1;
+            if(num == 1)
+                p.speakOut(R.ans1);
+            else if(num == 2)
+                p.speakOut(R.ans2);
+            else if(num == 3)
+                p.speakOut(R.ans3);
+        }
+        else {
+            HomePage.que = cmd;
+            p.speakOut("I couldn't understand this, can you suggest 3 good replies?");
+            HomePage.flag = 1;
         }
     }
+
+
     private void contactManager(){
         Intent intent = new Intent(context, ContactManager.class);
         pag.startActivity(intent);

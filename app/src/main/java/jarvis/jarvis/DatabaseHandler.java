@@ -18,7 +18,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String TABLE_Flags = "flagTable";
     private static final String TABLE_ACCOUNTS = "accountsTable";
     private static final String TABLE_STUDY = "studyTable";
+    private static final String TABLE_LEARN = "learnTable";
 
+    //Learn Table Column names
+    private static final String KEY_QUESTION = "question";
+    private static final String KEY_ANS1 = "ans1";
+    private static final String KEY_ANS2 = "ans2";
+    private static final String KEY_ANS3 = "ans3";
     // Contacts Table Columns names
     private static final String KEY_ID = "id";
     private static final String KEY_NAME = "name";
@@ -46,6 +52,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
+    public void learnIt(String que, String ans1, String ans2, String ans3) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(KEY_QUESTION, que);
+        values.put(KEY_ANS1, ans1);
+        values.put(KEY_ANS2, ans2);
+        values.put(KEY_ANS3, ans3);
+        // Inserting Row
+        db.insert(TABLE_LEARN, null, values);
+    }
 
     // Creating Tables
     @Override
@@ -54,6 +70,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_NAME + " TEXT,"
                 + KEY_PH_NO + " TEXT," + KEY_PH_EMAIL + " TEXT" + ")";
         db.execSQL(CREATE_CONTACTS_TABLE);
+
+        String CREATE_LEARN_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_LEARN + "(" + KEY_QUESTION + " TEXT, "
+                + KEY_ANS1 + " TEXT, " + KEY_ANS2 + " TEXT, " + KEY_ANS3  + " TEXT)";
+        db.execSQL(CREATE_LEARN_TABLE);
 
         String CREATE_FLAGS_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_Flags + "("
                 + KEY_FLAG + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_USER_NAME + " Text, " + KEY_NUM1 + " INTEGER, " + KEY_NUM2 + " INTEGER" + ")";
@@ -267,11 +287,24 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     public Results searchQuery(String cmd) {
         Results R = new Results();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * from " + TABLE_LEARN, null);
+        cursor.moveToFirst();
+        if(cursor.moveToFirst()){
+            do{
+                if(cursor.getString(cursor.getColumnIndex(KEY_QUESTION)).contains(cmd)){
+                    R.ans1 = cursor.getString(cursor.getColumnIndex(KEY_ANS1));
+                    R.ans2 = cursor.getString(cursor.getColumnIndex(KEY_ANS2));
+                    R.ans3 = cursor.getString(cursor.getColumnIndex(KEY_ANS3));
+                    R.status = true;
+                    return R;
+                }
+            }while(cursor.moveToNext());
+        }
+        R.status = false;
         R.ans1 = "get from db";
         R.ans2 = "get from db";
         R.ans3 = "get from db";
-
-        R.status = true;
         return R;
     }
 
