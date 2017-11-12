@@ -1,57 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
     android:background="@color/BluishBlack"
     tools:context="jarvis.jarvis.Hologram">
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <pl.droidsonroids.gif.GifImageView
-            android:id="@+id/gif1"
-            android:layout_width="350dp"
-            android:layout_height="250dp"
-            android:layout_marginLeft="130dp"
-            android:src="@drawable/ideal"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="0dp" />
-
-        <pl.droidsonroids.gif.GifImageView
-            android:id="@+id/gif2"
-            android:layout_width="350dp"
-            android:layout_height="250dp"
-            android:layout_marginLeft="130dp"
-            android:layout_marginTop="600dp"
-            android:rotation="180"
-            android:src="@drawable/ideal"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="0dp" />
-
-        <pl.droidsonroids.gif.GifImageView
-            android:id="@+id/gif3"
-            android:layout_width="350dp"
-            android:layout_height="450dp"
-            android:layout_marginLeft="-100dp"
-            android:layout_marginTop="200dp"
-            android:rotation="90"
-            android:src="@drawable/ideal"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="189dp" />
-
-        <pl.droidsonroids.gif.GifImageView
-            android:id="@+id/gif4"
-            android:layout_width="350dp"
-            android:layout_height="450dp"
-            android:layout_marginLeft="350dp"
-            android:layout_marginTop="200dp"
-            android:rotation="-90"
-            android:src="@drawable/ideal"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="189dp" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="1">
 
         <Button
             android:id="@+id/btnSpeaker"
@@ -61,5 +23,39 @@
             android:text="SK"
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="16dp" />
-    </FrameLayout>
-</android.support.constraint.ConstraintLayout>
+
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/gif1"
+            android:layout_width="370dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ideal" />
+        <android.support.v7.widget.LinearLayoutCompat
+            android:layout_width="420dp"
+            android:layout_height="143dp">
+            <pl.droidsonroids.gif.GifImageView
+                android:id="@+id/gif2"
+                android:layout_width="170dp"
+                android:layout_height="100dp"
+                android:layout_marginLeft="-30dp"
+                android:rotation="90"
+                android:src="@drawable/ideal" />
+            <pl.droidsonroids.gif.GifImageView
+                android:id="@+id/gif4"
+                android:layout_width="370dp"
+                android:layout_height="100dp"
+                android:layout_marginLeft="-30dp"
+                android:rotation="90"
+                android:src="@drawable/ideal" />
+        </android.support.v7.widget.LinearLayoutCompat>
+
+
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/gif3"
+            android:layout_width="370dp"
+            android:layout_height="100dp"
+            android:rotation="180"
+            android:src="@drawable/ideal" />
+
+
+    </LinearLayout>
+</RelativeLayout>
